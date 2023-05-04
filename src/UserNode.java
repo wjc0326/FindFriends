@@ -4,14 +4,17 @@ public class UserNode implements IUserNode{
     private String username;
     private int userId;
 
+    private int hashCodeFlag;
+
     /**
      * initialize a user node with given name and unique id
      * @param name the given username
      * @param id the given user id
      */
-    public UserNode(String name, int id) {
+    public UserNode(String name, int id, int flag) {
         username = name;
         userId = id;
+        hashCodeFlag = flag;
     }
 
     @Override
@@ -58,17 +61,26 @@ public class UserNode implements IUserNode{
      * @return userNode hash code
      */
     public int hashCode(){
-        // use userID as hash code
-        return userId;
 
-        // use username as hash code
-//        return username.hashCode();
+        switch(hashCodeFlag)
+        {
+            case 0:
+                // use userID as hash code
+                return userId;
+            case 1 :
+                // use username as hash code
+                return username.hashCode();
 
-        // use first four digit of username as hash code
-//        return username.substring(0,4).hashCode();
+            case 2 :
+                // use first four digit of username as hash code
+                return username.substring(0,Math.min(username.length(), 4)).hashCode();
 
-        // use first four digit of username and user id as hash code
-//        return userId + username.substring(0,4).hashCode();
+            case 3:
+                // use first four digit of username and user id as hash code
+                return userId + username.substring(0,Math.min(username.length(), 4)).hashCode();
+        }
+
+        return System.identityHashCode(this); // system default hashcode
     }
 
 }

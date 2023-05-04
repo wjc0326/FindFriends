@@ -10,16 +10,26 @@ public class SocialDatabase implements ISocialDatabase {
     private Map<UserNode, Map<String, String>> userDatabase = new HashMap<>();
     private int userNum = 0;  // the number of user in this database
     private Set<UserNode> userSet = new HashSet<>();  // a set stored all the users
+    private int hashCodeFlag;  // a flag indicate what type of hash code is using
+    private long usedTime; // time used to create the database
 
     /**
      * Initialize the database with input file
      * @param filename the name of a file contains the user data infomation
+     * @param flag a flag indicate what type of hash code is using
+     *             0: use user id as hash code
+     *             1: use username as hash code
+     *             2: use first four digit of username as hash code
+     *             3: use first four digit of username and user id as hash code
+     *             other: system default hash code
      */
-    public SocialDatabase(String filename) {
-
+    public SocialDatabase(String filename, int flag) {
+        hashCodeFlag = flag;
+        long startTime =  System.currentTimeMillis();
         createDataBase(filename);  // first create database
         createSocialNetwork();  // then create social network
-
+        long endTime =  System.currentTimeMillis();
+        usedTime = endTime - startTime;
     }
 
     /**
@@ -38,7 +48,8 @@ public class SocialDatabase implements ISocialDatabase {
                 // get username
                 String[] nameInfo = data.split(";",3);
                 // add user
-                addUserFromFile(nameInfo[0].trim(), Integer.parseInt(nameInfo[1].trim()), nameInfo[2]);
+                addUserFromFile(nameInfo[0].trim(), Integer.parseInt(nameInfo[1].trim()),
+                        nameInfo[2]);
             }
             reader.close();
         } catch (FileNotFoundException e) {
@@ -49,7 +60,7 @@ public class SocialDatabase implements ISocialDatabase {
 
     private void addUserFromFile(String name, int id, String info) {
         // create a new user
-        UserNode newUser = new UserNode(name, id);
+        UserNode newUser = new UserNode(name, id,hashCodeFlag);
         if (userSet.contains(newUser)) {
             // if username exist
             return;
@@ -104,11 +115,11 @@ public class SocialDatabase implements ISocialDatabase {
         // check the type of the object and create a temp userNode with it
         UserNode temp;
         if (user instanceof String) {
-            temp = new UserNode((String) user, 0);
+            temp = new UserNode((String) user, 0, hashCodeFlag);
         } else if (user instanceof Integer) {
-            temp = new UserNode(null, (int) user);
+            temp = new UserNode(null, (int) user, hashCodeFlag);
         } else {
-            temp = new UserNode(null, 0);
+            temp = new UserNode(null, 0, hashCodeFlag);
         }
 
         // go through the userSet return the wanted node
@@ -157,7 +168,7 @@ public class SocialDatabase implements ISocialDatabase {
         }
 
         // create a new user
-        UserNode newUser = new UserNode(name, 0);
+        UserNode newUser = new UserNode(name, 0, hashCodeFlag);
 
         // update userNum
         userNum ++;
@@ -204,7 +215,7 @@ public class SocialDatabase implements ISocialDatabase {
 
         if (userNode1 != null && userNode2 != null) {
             // if both user exist
-            if(!userNode1.equals(userNode2)){
+            if (!userNode1.equals(userNode2)) {
                 // if not the same node
                 socialNetwork.addEdge(userNode1, userNode2);
             }
@@ -283,6 +294,11 @@ public class SocialDatabase implements ISocialDatabase {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public long getTime() {
+        return usedTime;
     }
 
 

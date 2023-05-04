@@ -66,4 +66,9 @@ public interface ISocialDatabase {
      */
     void writeToFile(String filename);
 
+    /**
+     * @return the time used to create the database
+     */
+    long getTime();
+
 }

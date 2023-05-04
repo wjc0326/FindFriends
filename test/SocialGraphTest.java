@@ -7,18 +7,18 @@ public class SocialGraphTest {
     @Test
     public void nodeNum() {
         SocialGraph graph = new SocialGraph();
-        graph.addVertex(new UserNode("Tancy", 1));
+        graph.addVertex(new UserNode("Tancy", 1, 0));
         assertEquals(1, graph.nodeNum());
-        graph.addVertex(new UserNode("Tianyun", 2));
+        graph.addVertex(new UserNode("Tianyun", 2, 0));
         assertEquals(2, graph.nodeNum());
     }
 
     @Test
     public void edgeNum() {
         SocialGraph graph = new SocialGraph();
-        UserNode user1 = new UserNode("Tancy", 1);
-        UserNode user2 = new UserNode("Tianyun", 2);
-        UserNode user3 = new UserNode("Tansy", 3);
+        UserNode user1 = new UserNode("Tancy", 1, 0);
+        UserNode user2 = new UserNode("Tianyun", 2, 0);
+        UserNode user3 = new UserNode("Tansy", 3, 0);
         graph.addVertex(user1);
         graph.addEdge(user1, user2);
         assertEquals(2, graph.nodeNum());
@@ -32,8 +32,8 @@ public class SocialGraphTest {
     @Test
     public void addVertex() {
         SocialGraph graph = new SocialGraph();
-        UserNode user1 = new UserNode("Tancy", 1);
-        UserNode user2 = new UserNode("Tianyun", 2);
+        UserNode user1 = new UserNode("Tancy", 1, 0);
+        UserNode user2 = new UserNode("Tianyun", 2, 0);
         // add same vertex twice
         graph.addVertex(user1);
         graph.addVertex(user1);
@@ -47,9 +47,9 @@ public class SocialGraphTest {
     @Test
     public void addEdge() {
         SocialGraph graph = new SocialGraph();
-        UserNode user1 = new UserNode("Tancy", 1);
-        UserNode user2 = new UserNode("Tianyun", 2);
-        UserNode user3 = new UserNode("Tansy", 3);
+        UserNode user1 = new UserNode("Tancy", 1, 0);
+        UserNode user2 = new UserNode("Tianyun", 2, 0);
+        UserNode user3 = new UserNode("Tansy", 3, 0);
         // add same edge twice
         graph.addVertex(user1);
         graph.addEdge(user1, user2);
@@ -68,9 +68,9 @@ public class SocialGraphTest {
     @Test
     public void removeEdge() {
         SocialGraph graph = new SocialGraph();
-        UserNode user1 = new UserNode("Tancy", 1);
-        UserNode user2 = new UserNode("Tianyun", 2);
-        UserNode user3 = new UserNode("Tansy", 3);
+        UserNode user1 = new UserNode("Tancy", 1, 0);
+        UserNode user2 = new UserNode("Tianyun", 2, 0);
+        UserNode user3 = new UserNode("Tansy", 3, 0);
         graph.addVertex(user1);
         graph.addEdge(user1, user2);
         assertEquals(2, graph.nodeNum());
@@ -93,9 +93,9 @@ public class SocialGraphTest {
     @Test
     public void hasEdge() {
         SocialGraph graph = new SocialGraph();
-        UserNode user1 = new UserNode("Tancy", 1);
-        UserNode user2 = new UserNode("Tianyun", 2);
-        UserNode user3 = new UserNode("Tansy", 3);
+        UserNode user1 = new UserNode("Tancy", 1, 0);
+        UserNode user2 = new UserNode("Tianyun", 2, 0);
+        UserNode user3 = new UserNode("Tansy", 3, 0);
         graph.addEdge(user1, user2);
         assertFalse(graph.hasEdge(user2, user3));
         graph.addEdge(user1, user3);
@@ -108,9 +108,9 @@ public class SocialGraphTest {
     @Test
     public void getAdj() {
         SocialGraph graph = new SocialGraph();
-        UserNode user1 = new UserNode("Tancy", 1);
-        UserNode user2 = new UserNode("Tianyun", 2);
-        UserNode user3 = new UserNode("Tansy", 3);
+        UserNode user1 = new UserNode("Tancy", 1, 0);
+        UserNode user2 = new UserNode("Tianyun", 2, 0);
+        UserNode user3 = new UserNode("Tansy", 3, 0);
         graph.addEdge(user1, user2);
         graph.addEdge(user1, user3);
 
@@ -121,9 +121,9 @@ public class SocialGraphTest {
     @Test
     public void getVertices() {
         SocialGraph graph = new SocialGraph();
-        UserNode user1 = new UserNode("Tancy", 1);
-        UserNode user2 = new UserNode("Tianyun", 2);
-        UserNode user3 = new UserNode("Tansy", 3);
+        UserNode user1 = new UserNode("Tancy", 1, 0);
+        UserNode user2 = new UserNode("Tianyun", 2, 0);
+        UserNode user3 = new UserNode("Tansy", 3, 0);
         graph.addVertex(user1);
         graph.addVertex(user2);
         assertTrue(graph.getVertices().contains(user1));
