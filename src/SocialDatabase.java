@@ -9,9 +9,11 @@ public class SocialDatabase implements ISocialDatabase {
     private int userNum = 0;  // the number of user in this database
     private Set<UserNode> userSet = new HashSet<>();  // a set stored all the users
 
-
-    @Override
-    public void init(String filename) {
+    /**
+     * Initialize the database with input file
+     * @param filename the name of a file contains the user data infomation
+     */
+    public SocialDatabase(String filename) {
 
         createDataBase(filename);  // first create database
         createSocialNetwork();  // then create social network

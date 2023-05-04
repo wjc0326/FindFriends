@@ -4,12 +4,6 @@ import java.util.Set;
 public interface ISocialDatabase {
 
     /**
-     * Initialize the database with input file
-     * @param filename the name of a file contains the user data infomation
-     */
-    void init(String filename);
-
-    /**
      * get a userNode by username or user id
      * @param user given username or id
      * @return a userNode
