@@ -1,9 +1,6 @@
-public interface IGraph {
-    /**
-     * Initialize the graph
-     */
-    void init();
+import java.util.Set;
 
+public interface IGraph {
 
     /**
      * @return the number of vertices in current graph
@@ -18,42 +15,19 @@ public interface IGraph {
 
 
     /**
-     * Get the vertex information associate with index v
+     * Adds a new Vertex
      *
-     * @param v the index of the vertex
-     * @return the information of vertex
+     * @param v   - the given vertex
      */
-
-    Object getVertexInfo(int v);
-
+    void addVertex(UserNode v);
 
     /**
-     * Set the vertex information associate with index v
-     *
-     * @param v   the index of the vertex
-     * @param info the information of the vertex
-     */
-    void setVertexInfo(int v, Object info);
-
-
-    /**
-     * Adds a new edge from vertex v to vertex u with weight w
+     * Adds a new edge from vertex v to vertex u
      *
      * @param v   - the out vertex
      * @param u   - the in vertex
-     * @param w - the weight of the edge
      */
-    void addEdge(int v, int u, double w);
-
-
-    /**
-     * Get the weight of an edge
-     *
-     * @param v - the out vertex
-     * @param u - the in vertex
-     * @return the weight of the (v,u) edge
-     */
-    double getWeight(int v, int u);
+    void addEdge(UserNode v, UserNode u);
 
 
     /**
@@ -62,7 +36,7 @@ public interface IGraph {
      * @param v - the out vertex
      * @param u - the in vertex
      */
-    void removeEdge(int v, int u);
+    void removeEdge(UserNode v, UserNode u);
 
 
     /**
@@ -72,15 +46,22 @@ public interface IGraph {
      * @param u - the in vertex
      * @return true if the there is an edge between v and u, else return false
      */
-    boolean hasEdge(int v, int u);
+    boolean hasEdge(UserNode v, UserNode u);
 
 
     /**
      * Get all the adjacent vertices of given vertex
      *
      * @param v - the given vertex
-     * @return an array of adjacent vertices' index
+     * @return a set of adjacent vertices
      */
-    int[] getAdj(int v);
+    Set<UserNode> getAdj(UserNode v);
+
+    /**
+     * Get all the vertices in graph
+     *
+     * @return a set of adjacent vertices
+     */
+    Set<UserNode> getVertices();
 
 }
