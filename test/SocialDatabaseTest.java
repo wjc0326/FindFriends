@@ -1,19 +1,11 @@
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class SocialDatabaseTest {
 
     @Test
     public void init() {
-    }
-
-    @Test
-    public void createDataBase() {
-    }
-
-    @Test
-    public void createSocialNetwork() {
+        SocialDatabase database = new SocialDatabase();
+        database.init("./test/simpleTestDataFile.txt");
     }
 
     @Test
@@ -21,7 +13,7 @@ public class SocialDatabaseTest {
     }
 
     @Test
-    public void getUserInfoByName() {
+    public void getUserInfo() {
     }
 
     @Test

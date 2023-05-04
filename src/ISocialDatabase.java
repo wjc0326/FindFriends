@@ -1,5 +1,5 @@
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface ISocialDatabase {
 
@@ -8,17 +8,6 @@ public interface ISocialDatabase {
      * @param filename the name of a file contains the user data infomation
      */
     void init(String filename);
-
-    /**
-     * use to create the HashMap store the user info with input file
-     * @param filename the name of a file contains the user data information
-     */
-    void createDataBase(String filename);
-
-    /**
-     * use the stored user infomation create a social network graph
-     */
-    void createSocialNetwork();
 
     /**
      * get a userNode by username or user id
@@ -32,14 +21,14 @@ public interface ISocialDatabase {
      * @param user given username or id
      * @return a map contains specific user's information
      */
-    Map<String, String> getUserInfoByName(Object user);
+    Map<String, String> getUserInfo(Object user);
 
     /**
      * get a user friends list by username or user id
      * @param user given username or id
      * @return a list contains specific user's friends information
      */
-    List<UserNode> getFriends(Object user);
+    Set<UserNode> getFriends(Object user);
 
     /**
      * @return the total number of user in this social database
@@ -55,15 +44,16 @@ public interface ISocialDatabase {
      * add a new user to this social database with given username and information
      * @param name given username
      * @param info user information
+     * @return true if add successfully, false if suggest username already exist
      */
-    void addUser(String name, String info);
+    boolean addUser(String name, String info);
 
     /**
      * add a friend pair to this social database
-     * @param username1 the name of a friend
-     * @param username2 the name of another friend
+     * @param user1 the name or id of a user
+     * @param user2 the name or id of another user
      */
-    void addConnection(String username1, String username2);
+    void addConnection(Object user1, Object user2);
 
     /**
      * @return a collection of all user's name and their associate id
