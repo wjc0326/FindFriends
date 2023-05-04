@@ -1,0 +1,5 @@
+A;1;age: 25; work: student; hobby: crocheting; friend: B, C, D, E, 
+B;2;age: 25; work: student; hobby: traveling; friend: A, C, 
+C;3;age: 25; work: student; hobby: traveling; friend: A, B, 
+D;4;age: 30; work: coach; hobby: reading; friend: A, E, 
+E;5;age: 43; work: it; hobby: tango; friend: A, D, 

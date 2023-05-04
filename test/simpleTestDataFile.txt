@@ -1,4 +1,4 @@
-A; Age: 25; work: Student; Hobby: crocheting; Friend: B, C, D
-B; Age:25; work: Student; Hobby: traveling; Friend: A, C
-C; Age:25; work: Student; Hobby: traveling; Friend: A, B
-D; Age:30; work: Coach; Hobby: Reading; Friend: A
+A; 1; Age: 25; work: Student; Hobby: crocheting; Friend: B, C, D
+B; 2; Age:25; work: Student; Hobby: traveling; Friend: A, C
+C; 3; Age:25; work: Student; Hobby: traveling; Friend: A, B
+D; 4; Age:30; work: Coach; Hobby: Reading; Friend: A,;

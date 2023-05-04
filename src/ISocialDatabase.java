@@ -60,4 +60,10 @@ public interface ISocialDatabase {
      */
     void printUserInfo(Object user);
 
+    /**
+     * use to write the database to a given file
+     * @param filename given filename
+     */
+    void writeToFile(String filename);
+
 }
