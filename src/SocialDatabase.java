@@ -151,12 +151,14 @@ public class SocialDatabase implements ISocialDatabase {
 
     @Override
     public boolean addUser(String name, String info) {
-        // create a new user
-        UserNode newUser = new UserNode(name, 0);
-        if (userSet.contains(newUser)) {
+        if (getUser(name) != null) {
             // if username exist
             return false;
         }
+
+        // create a new user
+        UserNode newUser = new UserNode(name, 0);
+
         // update userNum
         userNum ++;
         // assign id for user

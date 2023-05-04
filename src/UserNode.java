@@ -49,8 +49,9 @@ public class UserNode implements IUserNode{
         }
 
         return (!(user.getName() == null && user.getID()  == 0))
-                && (Objects.equals(username, user.getName()) || user.getName() == null)
-                && (userId == user.getID() || user.getID()  == 0);
+                && (!(username == null && userId  == 0))
+                && (Objects.equals(username, user.getName()) || user.getName() == null || username == null)
+                && (userId == user.getID() || user.getID()  == 0 || userId == 0);
     }
 
     /**

@@ -84,6 +84,9 @@ public class SocialDatabaseTest {
         assertEquals("it", result2.get("work"));
         assertEquals("tango", result2.get("hobby"));
         assertEquals("A", result2.get("friend"));
+
+        // add exist username
+        assertFalse(database.addUser("E", " "));
     }
 
     @Test
