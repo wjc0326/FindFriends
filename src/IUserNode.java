@@ -1,11 +1,4 @@
 public interface IUserNode {
-    /**
-     * initialize a user node with given name and unique id
-     *
-     * @param name the given username
-     * @param id the given user id
-     */
-    void init(String name, int id);
 
     /**
      * @return the username of current user
