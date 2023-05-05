@@ -39,7 +39,8 @@ public class Recommend implements IRecommend {
     }
 
     @Override
-    public Map<String, Map<String, String>> getNewFriendsInfo(SocialDatabase database, String username) {
+    public Map<String, Map<String, String>> getNewFriendsInfo(SocialDatabase database,
+                                                              String username) {
         thisUserInfo = getThisUserInfo(database, username);
         newFriends = getNewFriends(database, username);
         for (String friend : newFriends) {
