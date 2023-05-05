@@ -45,25 +45,36 @@ public interface IRecommend {
     Map<String, Double> popularityScore(SocialDatabase database);
 
     /**
+     * Compute the score of new friends, given one standard
+     * @param database used to get info
+     * @param word the single standard user choose
+     */
+    List<String> oneWordScore(SocialDatabase database, String word);
+
+    /**
      * Compute the combined scores of new friends, given two standards
+     * @param database used to get info
      * @param wordList the standards user choose, sort by importance
      */
     List<String> twoWordsScore(SocialDatabase database, List<String> wordList);
 
     /**
      * Compute the combined scores of new friends, given three standards
+     * @param database used to get info
      * @param wordList the standards user choose, sort by importance
      */
     List<String> threeWordsScore(SocialDatabase database, List<String> wordList);
 
     /**
      * Compute the combined scores of new friends, given four standards
+     * @param database used to get info
      * @param wordList the standards user choose, sort by importance
      */
     List<String> fourWordsScore(SocialDatabase database, List<String> wordList);
 
     /**
      * Get the list of new friends to recommend, sort by score
+     * @param database used to get info
      * @param wordList the standards user choose, sort by importance
      */
     List<String> newFriendsSorted(SocialDatabase database, List<String> wordList);
