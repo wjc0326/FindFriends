@@ -30,7 +30,7 @@ public class Recommend implements IRecommend {
 
         // get new friends' names (in all usernames but not in friends' names)
         for (String name : allUserName) {
-            if (!friendsName.contains(name)) {
+            if ((!friendsName.contains(name)) && (!name.equals(username))) {
                 newFriends.add(name);
             }
         }
@@ -39,7 +39,9 @@ public class Recommend implements IRecommend {
     }
 
     @Override
-    public Map<String, Map<String, String>> getNewFriendsInfo(SocialDatabase database) {
+    public Map<String, Map<String, String>> getNewFriendsInfo(SocialDatabase database, String username) {
+        thisUserInfo = getThisUserInfo(database, username);
+        newFriends = getNewFriends(database, username);
         for (String friend : newFriends) {
             newFriendsInfo.put(friend, database.getUserInfo(friend));
         }
@@ -50,32 +52,32 @@ public class Recommend implements IRecommend {
     @Override
     public Map<String, Double> hobbyScore() {
         Double score;
-        int sameHobby = 0;
 
         Map<String, Double> scoreForHobby = new HashMap<>();
         // split by "," and remove the leading and trailing white spaces
         List<String> myHobbies = Arrays.asList(thisUserInfo.get("hobby").split(","));
+        List<String> updatedMyHobbies = new ArrayList<>();
         for (String hobby : myHobbies) {
-            myHobbies.remove(hobby);
-            myHobbies.add(hobby.strip());
+            updatedMyHobbies.add(hobby.strip());
         }
 
         // STRATEGY: score = num of hobbies in common / total num of this user's hobbies
         for (Map.Entry<String, Map<String, String>> friend : newFriendsInfo.entrySet()) {
+            int sameHobby = 0;
             // split by "," and remove the leading and trailing white spaces
             List<String> friendHobbies = Arrays.asList(friend.getValue().get("hobby").split(","));
+            List<String> updatedFriendHobbies = new ArrayList<>();
             for (String hobby : friendHobbies) {
-                friendHobbies.remove(hobby);
-                friendHobbies.add(hobby.strip());
+                updatedFriendHobbies.add(hobby.strip());
             }
 
             // iterate through the hobbies of this user and see how many hobbies are in common
-            for (String hobby : myHobbies) {
-                if (friendHobbies.contains(hobby)) {
+            for (String hobby : updatedMyHobbies) {
+                if (updatedFriendHobbies.contains(hobby)) {
                     sameHobby++;
                 }
             }
-            score = (double) sameHobby / myHobbies.size();
+            score = (double) sameHobby / updatedMyHobbies.size();
             scoreForHobby.put(friend.getKey(), score);
         }
 
@@ -116,7 +118,7 @@ public class Recommend implements IRecommend {
         for (Map.Entry<String, Map<String, String>> friend : newFriendsInfo.entrySet()) {
             int friendAge = Integer.parseInt(friend.getValue().get("age"));
 
-            score = (double) (1 - Math.abs(myAge - friendAge) / myAge);
+            score = 1.0 - ((double)Math.abs(myAge - friendAge) / (double)myAge);
             scoreForAge.put(friend.getKey(), score);
         }
 
@@ -135,7 +137,7 @@ public class Recommend implements IRecommend {
             String friendName = friend.getKey();
             int connection = database.getFriends(friendName).size();
 
-            score = (double) (connection / allConnections);
+            score = (double)connection / (double)allConnections;
             scoreForPopularity.put(friend.getKey(), score);
         }
 
@@ -172,10 +174,25 @@ public class Recommend implements IRecommend {
         return scoreMap;
     }
 
+    public List<String> oneWordScore(SocialDatabase database, String word) {
+        Map<String, Double> scoreMap = switchCases(database, word);
+        List<String> result = new ArrayList<>();
+
+        List<Map.Entry<String, Double>> scoreList = new ArrayList<>(scoreMap.entrySet());
+        // call the sort() method of Collections
+        Collections.sort(scoreList, byReverseScoreOrder());
+        // get entry from list to the map
+        for (Map.Entry<String, Double> entry : scoreList) {
+            result.add(entry.getKey());
+        }
+
+        return result;
+    }
+
     @Override
-    public Map<String, Double> twoWordsScore(SocialDatabase database, List<String> wordList) {
+    public List<String> twoWordsScore(SocialDatabase database, List<String> wordList) {
         Map<String, Double> twoWordsScoreMap = new HashMap<>();
-        Map<String, Double> result = new HashMap<>();
+        List<String> result = new ArrayList<>();
 
         Set<String> wordSet = new HashSet<>();
         wordSet.addAll(wordList);
@@ -184,7 +201,7 @@ public class Recommend implements IRecommend {
         // 1. the num of words in wordList is two
         // 2. no duplicate
         if ((wordList.size() != 2) || (wordSet.size() != 2)) {
-            return twoWordsScoreMap;
+            return result;
         }
 
         String firstWord = wordList.get(0);
@@ -206,16 +223,16 @@ public class Recommend implements IRecommend {
         Collections.sort(scoreList, byReverseScoreOrder());
         // get entry from list to the map
         for (Map.Entry<String, Double> entry : scoreList) {
-            result.put(entry.getKey(), entry.getValue());
+            result.add(entry.getKey());
         }
 
         return result;
     }
 
     @Override
-    public Map<String, Double> threeWordsScore(SocialDatabase database, List<String> wordList) {
+    public List<String> threeWordsScore(SocialDatabase database, List<String> wordList) {
         Map<String, Double> threeWordsScoreMap = new HashMap<>();
-        Map<String, Double> result = new HashMap<>();
+        List<String> result = new ArrayList<>();
 
         Set<String> wordSet = new HashSet<>();
         wordSet.addAll(wordList);
@@ -224,7 +241,7 @@ public class Recommend implements IRecommend {
         // 1. the num of words in wordList is two
         // 2. no duplicate
         if ((wordList.size() != 3) || (wordSet.size() != 3)) {
-            return threeWordsScoreMap;
+            return result;
         }
 
         String firstWord = wordList.get(0);
@@ -249,16 +266,16 @@ public class Recommend implements IRecommend {
         Collections.sort(scoreList, byReverseScoreOrder());
         // get entry from list to the map
         for (Map.Entry<String, Double> entry : scoreList) {
-            result.put(entry.getKey(), entry.getValue());
+            result.add(entry.getKey());
         }
 
         return result;
     }
 
     @Override
-    public Map<String, Double> fourWordsScore(SocialDatabase database, List<String> wordList) {
+    public List<String> fourWordsScore(SocialDatabase database, List<String> wordList) {
         Map<String, Double> fourWordsScoreMap = new HashMap<>();
-        Map<String, Double> result = new HashMap<>();
+        List<String> result = new ArrayList<>();
 
         Set<String> wordSet = new HashSet<>();
         wordSet.addAll(wordList);
@@ -267,7 +284,7 @@ public class Recommend implements IRecommend {
         // 1. the num of words in wordList is two
         // 2. no duplicate
         if ((wordList.size() != 4) || (wordSet.size() != 4)) {
-            return fourWordsScoreMap;
+            return result;
         }
 
         String firstWord = wordList.get(0);
@@ -298,7 +315,7 @@ public class Recommend implements IRecommend {
         Collections.sort(scoreList, byReverseScoreOrder());
         // get entry from list to the map
         for (Map.Entry<String, Double> entry : scoreList) {
-            result.put(entry.getKey(), entry.getValue());
+            result.add(entry.getKey());
         }
 
         return result;
@@ -306,32 +323,27 @@ public class Recommend implements IRecommend {
 
     @Override
     public List<String> newFriendsSorted(SocialDatabase database, List<String> wordList) {
-        Map<String, Double> finalScore = new HashMap<>();
         List<String> nameSorted = new ArrayList<>();
 
         int length = wordList.size();
         switch (length) {
             case 1:
-                finalScore = switchCases(database, wordList.get(0));
+                nameSorted = oneWordScore(database, wordList.get(0));
                 break;
             case 2:
-                finalScore = twoWordsScore(database, wordList);
+                nameSorted = twoWordsScore(database, wordList);
                 break;
             case 3:
-                finalScore = threeWordsScore(database, wordList);
+                nameSorted = threeWordsScore(database, wordList);
                 break;
             case 4:
-                finalScore = fourWordsScore(database, wordList);
+                nameSorted = fourWordsScore(database, wordList);
                 break;
             default:
                 // the user doesn't input any standards
                 // we use the default value: [hobby, age, work, popular]
                 wordList = Arrays.asList("hobby", "age", "work", "popular");
-                finalScore = fourWordsScore(database, wordList);
-        }
-
-        for (Map.Entry<String, Double> entry : finalScore.entrySet()) {
-            nameSorted.add(entry.getKey());
+                nameSorted = fourWordsScore(database, wordList);
         }
 
         return nameSorted;

@@ -47,10 +47,11 @@ public class UserNode implements IUserNode{
             return true;
         }
 
-        if (!(o instanceof UserNode user)) {
+        if (!(o instanceof UserNode)) {
             return false;
         }
 
+        UserNode user = (UserNode) o;
         return (!(user.getName() == null && user.getID()  == 0))
                 && (!(username == null && userId  == 0))
                 && (Objects.equals(username, user.getName()) || user.getName() == null || username == null)

@@ -19,8 +19,9 @@ public interface IRecommend {
     /**
      * Get the information of new friends
      * @param database used to get info
+     * @param username the name of this user
      */
-    Map<String, Map<String, String>> getNewFriendsInfo(SocialDatabase database);
+    Map<String, Map<String, String>> getNewFriendsInfo(SocialDatabase database, String username);
 
     /**
      * Compute the hobby scores of new friends
@@ -47,19 +48,19 @@ public interface IRecommend {
      * Compute the combined scores of new friends, given two standards
      * @param wordList the standards user choose, sort by importance
      */
-    Map<String, Double> twoWordsScore(SocialDatabase database, List<String> wordList);
+    List<String> twoWordsScore(SocialDatabase database, List<String> wordList);
 
     /**
      * Compute the combined scores of new friends, given three standards
      * @param wordList the standards user choose, sort by importance
      */
-    Map<String, Double> threeWordsScore(SocialDatabase database, List<String> wordList);
+    List<String> threeWordsScore(SocialDatabase database, List<String> wordList);
 
     /**
      * Compute the combined scores of new friends, given four standards
      * @param wordList the standards user choose, sort by importance
      */
-    Map<String, Double> fourWordsScore(SocialDatabase database, List<String> wordList);
+    List<String> fourWordsScore(SocialDatabase database, List<String> wordList);
 
     /**
      * Get the list of new friends to recommend, sort by score
