@@ -1,6 +1,3 @@
-// CIS_22C - George Korolev
-// CIS_22C - Ahror Abdulhamidov
-
 import java.util.*;
 
 public class UserInteractionService {
