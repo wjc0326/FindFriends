@@ -156,6 +156,16 @@ public class RecommendTest {
         assertEquals("G", result.get(3));
         assertEquals("H", result.get(4));
 
+        // TEST FOR DEFAULT (NO WORDS)
+        wordList = new ArrayList<>();
+        result = rec.newFriendsSorted(database, wordList);
+        assertEquals(5, result.size());
+        assertEquals("F", result.get(0));
+        assertEquals("C", result.get(1));
+        assertEquals("H", result.get(2));
+        assertEquals("G", result.get(3));
+        assertEquals("I", result.get(4));
+
         // TEST FOR TWO WORDS
         wordList = Arrays.asList("hobby", "age");
         result = rec.newFriendsSorted(database, wordList);
@@ -185,15 +195,5 @@ public class RecommendTest {
         assertEquals("I", result.get(2));
         assertEquals("H", result.get(3));
         assertEquals("G", result.get(4));
-
-        // TEST FOR DEFAULT
-        wordList = new ArrayList<>();
-        result = rec.newFriendsSorted(database, wordList);
-        assertEquals(5, result.size());
-        assertEquals("F", result.get(0));
-        assertEquals("C", result.get(1));
-        assertEquals("H", result.get(2));
-        assertEquals("G", result.get(3));
-        assertEquals("I", result.get(4));
     }
 }
