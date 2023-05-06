@@ -65,7 +65,6 @@ public class ShortestPathTest {
             }
             assertEquals(expectedPath.get(i), myFriends);
         }
-
     }
     @Test
     public void testRunTime() {
