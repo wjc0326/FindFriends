@@ -64,6 +64,10 @@ public class UserInteractionService {
         while(true){
             String word = getString("Enter the tags you want to search for, or Exit to stop." +
                     " Here are the tags you may consider to add "+ wordList+ "\n");
+            if (word.isEmpty()) {
+                query = Arrays.asList("popular", "age", "work", "hobby");
+                break;
+            }
             if (wordList.contains(word)) {
                 wordList.remove(word);
                 query.add(word);
