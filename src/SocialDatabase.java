@@ -147,7 +147,6 @@ public class SocialDatabase implements ISocialDatabase {
         if (userNode == null) {
             return new HashSet<>(); // if user not exit, return an empty set
         }
-
         return socialNetwork.getAdj(userNode);
     }
 
