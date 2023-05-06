@@ -5,10 +5,10 @@ public interface IShortestPath {
 
     /**
      * Get the shortest path from current user to his future friend
-     * @param username current user
+     * @param sername current user
      * @param friend you want to connect
      */
-    List<Integer> getShortesetPath(SocialDatabase database, String username, String friend);
+    List<Integer> getShortesetPath(SocialDatabase database, String sername, String friend);
 
     List<Integer> getShortesetPathDFS(SocialDatabase database, String username, String friend);
 }
