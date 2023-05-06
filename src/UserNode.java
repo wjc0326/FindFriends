@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class UserNode implements IUserNode{
+public class UserNode implements IUserNode {
     private String username;
     private int userId;
 
@@ -39,7 +39,8 @@ public class UserNode implements IUserNode{
 
     @Override
     public void printUser() {
-        System.out.println("Username: " + username + "\nUserID: " + userId);
+        System.out
+                .println("Username: " + username + "\nUserID: " + userId);
     }
 
     public boolean equals(Object o) {
@@ -54,17 +55,17 @@ public class UserNode implements IUserNode{
         UserNode user = (UserNode) o;
         return (!(user.getName() == null && user.getID()  == 0))
                 && (!(username == null && userId  == 0))
-                && (Objects.equals(username, user.getName()) || user.getName() == null || username == null)
+                && (Objects.equals(username, user.getName()) ||
+                user.getName() == null || username == null)
                 && (userId == user.getID() || user.getID()  == 0 || userId == 0);
     }
 
     /**
      * @return userNode hash code
      */
-    public int hashCode(){
+    public int hashCode() {
 
-        switch(hashCodeFlag)
-        {
+        switch (hashCodeFlag) {
             case 0:
                 // use userID as hash code
                 return userId;
@@ -79,6 +80,9 @@ public class UserNode implements IUserNode{
             case 3:
                 // use first four digit of username and user id as hash code
                 return userId + username.substring(0,Math.min(username.length(), 4)).hashCode();
+
+            default:
+                break;
         }
 
         return System.identityHashCode(this); // system default hashcode

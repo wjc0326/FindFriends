@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class ShortestPath implements IShortestPath{
+public class ShortestPath implements IShortestPath {
     /**
      * Get the shortest path from current user to his future friend
      *
@@ -53,7 +53,8 @@ public class ShortestPath implements IShortestPath{
     }
 
     @Override
-    public List<Integer> getShortesetPathDFS(SocialDatabase database, String username, String friend) {
+    public List<Integer> getShortesetPathDFS(SocialDatabase database,
+                                             String username, String friend) {
         int numOfVertices = database.getAllUser().size();
         boolean[] visited = new boolean[numOfVertices + 1];
         List<Integer> currentPath = new ArrayList<>();
@@ -66,7 +67,8 @@ public class ShortestPath implements IShortestPath{
         return shortestPath;
     }
 
-    private void dfsUtil(SocialDatabase database, int currentNode, int targetNode, boolean[] visited, List<Integer> currentPath, List<Integer> shortestPath) {
+    private void dfsUtil(SocialDatabase database, int currentNode, int targetNode,
+                         boolean[] visited, List<Integer> currentPath, List<Integer> shortestPath) {
         visited[currentNode] = true;
         currentPath.add(currentNode);
 

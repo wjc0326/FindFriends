@@ -3,7 +3,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -77,13 +76,15 @@ public class ShortestPathTest {
         long endTime = System.nanoTime();
 
         long elapsedTime = endTime - startTime;
-        System.out.println("BFS Execution Time: " + elapsedTime + " nanoseconds");
+        System.out
+                .println("BFS Execution Time: " + elapsedTime + " nanoseconds");
 
         long startTimeDFS = System.nanoTime();
         List<Integer> pathDFS = sp.getShortesetPathDFS(database, "A", "I");
         long endTimeDFS = System.nanoTime();
 
         long elapsedTimeDFS = endTimeDFS - startTimeDFS;
-        System.out.println("DFS Execution Time: " + elapsedTimeDFS + " nanoseconds");
+        System.out
+                .println("DFS Execution Time: " + elapsedTimeDFS + " nanoseconds");
     }
 }
