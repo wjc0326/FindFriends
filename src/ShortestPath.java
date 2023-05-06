@@ -62,7 +62,6 @@ public class ShortestPath implements IShortestPath{
         int u = database.getUser(username).getID();
         int v = database.getUser(friend).getID();
 
-
         dfsUtil(database, u, v, visited, currentPath, shortestPath);
         return shortestPath;
     }
