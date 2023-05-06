@@ -45,7 +45,7 @@ public class UserInteractionService {
         System.out.print("There are " + (friendConnect.size() -2) +" people between you and " + friend + ".");
         System.out.print(" Inorder to know " + friend +", you should get to know ");
 
-        for (int i = 1; i < friendConnect.size()-1; i++){
+        for (int i = 1; i < friendConnect.size()-1; i++) {
             if (i == friendConnect.size()-2) {
                 System.out.print(database.getUser(friendConnect.get(i)).getName());
             } else {
@@ -110,8 +110,8 @@ public class UserInteractionService {
         System.out.println("Once you Exit, the modified hashedDictionaries will be displayed and reserialized (saved).");
 
         boolean control = true;
-        while(control){
-            switch (getString("Enter Login or Exit\n")){
+        while(control) {
+            switch (getString("Enter Login or Exit\n")) {
                 case "Login":
                     logIn(database);
                     control = true;
@@ -127,7 +127,7 @@ public class UserInteractionService {
         }
     }
 
-    public void logIn(SocialDatabase database){
+    public void logIn(SocialDatabase database) {
         String username = getString("Enter your username: ");
         Map<String, String> info = rec.getThisUserInfo(database, username);
 
@@ -140,13 +140,13 @@ public class UserInteractionService {
             System.out.println("Friends: " + info.get("friend"));
 
             boolean control = true;
-            while(control){
+            while(control) {
                 System.out.println();
                 System.out.println("Hello "+ username+"! What do you want to do today?");
                 System.out.println("1. Some one you may know");
                 System.out.println("2. Search friends and find how to connect them");
                 System.out.println("3. I want to log out :(");
-                switch (getString("Enter choice 1, 2 or 3: \n" )){
+                switch (getString("Enter choice 1, 2 or 3: \n" )) {
                     case "1":
                         findNewFriends(username);
                         control = true;
