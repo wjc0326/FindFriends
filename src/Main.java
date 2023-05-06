@@ -4,8 +4,8 @@ public class Main {
         SocialDatabase database =
                 new SocialDatabase("./test/RecommendTestFile/recommendDataSet.txt", 0);
 
-        UserInteractionService UIService = new UserInteractionService();
-        UIService.mainMenu(database);
+        UserInteractionService UIservice = new UserInteractionService();
+        UIservice.mainMenu(database);
     }
 
 }
