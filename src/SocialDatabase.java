@@ -92,7 +92,7 @@ public class SocialDatabase implements ISocialDatabase {
     }
 
     /**
-     * use the stored user infomation create a social network graph
+     * use the stored user information create a social network graph
      */
     private void createSocialNetwork() {
         for (UserNode u: userSet) {
