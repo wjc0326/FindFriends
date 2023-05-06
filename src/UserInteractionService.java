@@ -98,7 +98,6 @@ public class UserInteractionService {
 
     public void mainMenu(SocialDatabase database){
         // Load database
-//        profileService.loadDatabase();
         this.database = database;
         this.rec = new Recommend();
         Map<String, String> info = rec.getThisUserInfo(database, "A");
